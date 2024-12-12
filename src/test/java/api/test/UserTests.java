@@ -44,6 +44,31 @@ public class UserTests {
 		
 		res.then().log().all();
 		Assert.assertEquals(res.getStatusCode(), 200);
+		
+		
 	
+	}
+	
+	
+	public void updateUser() {
+		
+		userPayload.setFirstname(faker.name().firstName());
+		userPayload.setLastname(faker.name().lastName());
+		userPayload.setEmail(faker.internet().emailAddress());
+		Response response=UserEndPoints.UpdateUser(this.userPayload.getUsername(),userPayload);
+		response.then().log().all();
+		Assert.assertEquals(response.getStatusCode(), 200);
+		
+		//Check response after update 
+		Response responseAfterUpdate=UserEndPoints.ReadUser(this.userPayload.getUsername());
+		Assert.assertEquals(responseAfterUpdate.getStatusCode(), 200);
+		
+	}
+	
+	public void testDeleteUserByName() {
+		Response  response =UserEndPoints.DeleteUser(this.userPayload.getUsername());
+		Assert.assertEquals(response.statusCode(), 200);
+		
+		
 	}
 }

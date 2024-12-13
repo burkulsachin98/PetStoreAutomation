@@ -43,13 +43,8 @@ public class UserTests {
 		Response res =UserEndPoints.ReadUser(this.userPayload.getUsername());
 		
 		res.then().log().all();
-		Assert.assertEquals(res.getStatusCode(), 200);
-		
-		
-	
-	}
-	
-	
+		Assert.assertEquals(res.getStatusCode(), 200);	
+	}	
 	public void updateUser() {
 		
 		userPayload.setFirstname(faker.name().firstName());

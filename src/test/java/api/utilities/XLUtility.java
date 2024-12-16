@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -11,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class XLUtility {
-	
 	
 	public FileInputStream fi;
 	public FileOutputStream fo;
@@ -30,9 +32,12 @@ public class XLUtility {
 	public int getRowCount(String sheetName) throws IOException
 	{
 		fi=new FileInputStream(path);
+//		HSSFWorkbook wb=new HSSFWorkbook(fi); 
 		workbook=new XSSFWorkbook(fi);
+//		HSSFSheet localsheet=wb.getSheet(sheetName);  
 		sheet=workbook.getSheet(sheetName);
 		int rowcount=sheet.getLastRowNum();
+//		wb.close();
 		workbook.close();
 		fi.close();
 		return rowcount;
@@ -98,8 +103,6 @@ public class XLUtility {
 		workbook.close();
 		fi.close();
 		fo.close();
-		
 	}
-	
 
 }

@@ -2,17 +2,22 @@ package api.utilities;
 
 import java.io.IOException;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.testng.annotations.DataProvider;
 
 public class DataProviders {
 	@DataProvider(name="Data")
-	public String[][] getAllData() throws IOException
+	public String[][] getAllData() throws IOException, InvalidFormatException
 	{
-		String path=System.getProperty("user.dir")+"//testData//Userdata.xlsx";
+		String path="C:/Users/sachin.Burkul/git/PetStoreAutomation2/PetStoreAutomation/testData/Userdata.xlsx";
+		
 		XLUtility xl=new XLUtility(path);
 		
 		int rownum=xl.getRowCount("Sheet1");
 		int colcount=xl.getCellCount("Sheet1",1);
+		
+		System.out.println("getRowCount"+rownum);
+		System.out.println("getCellCount"+colcount);
 		
 		String apidata[][]=new String[rownum][colcount];
 		
@@ -28,7 +33,7 @@ public class DataProviders {
 	
 
 	@DataProvider(name="UserNames")
-	public String[] getUserNames() throws IOException
+	public String[] getUserNames() throws IOException, InvalidFormatException
 	{
 		String path=System.getProperty("user.dir")+"//testData//Userdata.xlsx";
 		XLUtility xl=new XLUtility(path);

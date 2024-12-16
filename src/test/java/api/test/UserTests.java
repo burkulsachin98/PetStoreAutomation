@@ -1,24 +1,32 @@
 package api.test;
-import api.payload.User;
-import io.restassured.response.Response;
-import org.testng.Assert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com 	.github.javafaker.Faker;
 
 import api.endpoints.UserEndPoints;
+import api.payload.User;
+import io.restassured.response.Response;
 
 public class UserTests {
 
 	Faker faker;
 	User userPayload;
+	
+	public Logger logger;
+	
 
 	@BeforeClass
 	public void setupData() {
 
 		faker = new Faker();
 		userPayload = new User();
+		
+		
+		
 
 		userPayload.setId(faker.idNumber().hashCode());
 		userPayload.setUsername(faker.name().username());
@@ -27,6 +35,10 @@ public class UserTests {
 		userPayload.setEmail(faker.internet().emailAddress());
 		userPayload.setPassword(faker.internet().password(5,10));
 		userPayload.setPhone(faker.phoneNumber().cellPhone());
+		
+		
+		logger=LogManager.getLogger(this.getClass());
+		
 
 	}
 	@Test(priority=1)
@@ -34,7 +46,7 @@ public class UserTests {
 
 		Response res =UserEndPoints.CreateUser(userPayload);
 		res.then().log().all();
-		Assert.assertEquals(res.getStatusCode(),200);
+		AssertJUnit.assertEquals(res.getStatusCode(),200);
 
 	}
 	@Test(priority=2)
@@ -43,7 +55,7 @@ public class UserTests {
 		Response res =UserEndPoints.ReadUser(this.userPayload.getUsername());
 
 		res.then().log().all();
-		Assert.assertEquals(res.getStatusCode(), 200);	
+		AssertJUnit.assertEquals(res.getStatusCode(), 200);	
 	}	
 	public void updateUser() {
 
@@ -52,17 +64,18 @@ public class UserTests {
 		userPayload.setEmail(faker.internet().emailAddress());
 		Response response=UserEndPoints.UpdateUser(this.userPayload.getUsername(),userPayload);
 		response.then().log().all();
-		Assert.assertEquals(response.getStatusCode(), 200);
+		AssertJUnit.assertEquals(response.getStatusCode(), 200);
 
 		//Check response after update 
 		Response responseAfterUpdate=UserEndPoints.ReadUser(this.userPayload.getUsername());
-		Assert.assertEquals(responseAfterUpdate.getStatusCode(), 200);
+		AssertJUnit.assertEquals(responseAfterUpdate.getStatusCode(), 200);
 
 	}
 
+	@Test
 	public void testDeleteUserByName() {
 		Response  response =UserEndPoints.DeleteUser(this.userPayload.getUsername());
-		Assert.assertEquals(response.statusCode(), 200);
+		AssertJUnit.assertEquals(response.statusCode(), 200);
 
 
 	}

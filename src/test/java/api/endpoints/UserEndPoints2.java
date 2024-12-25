@@ -9,6 +9,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 // It Contain for to perform the CRUD operation  to the user API 
+//it uses the routes data from the properties files.
 
 public class UserEndPoints2 {
 

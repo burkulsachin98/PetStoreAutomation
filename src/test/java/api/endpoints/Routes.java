@@ -11,14 +11,17 @@ public class Routes {
 	public static String update_url=base_url+"/user/{username}";
 	public static String delete_url =base_url+"/user/{username}";
 	
-	
-	
+
 	//Store module 
 	
 	  //Here we will create Store module url's 
-	//pet mudule 
 	
-	  //Here we will create pet module url's 
+	//pet module 
+	
+	  
+	
+	
+	
 	
 	
 	
